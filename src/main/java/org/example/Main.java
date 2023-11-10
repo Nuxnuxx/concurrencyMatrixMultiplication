@@ -18,12 +18,15 @@ public class Main {
         System.out.println("Entrez la Matrice B:");
         enterMatrixValues(B, scanner);
 
-        try (ForkJoinPool forkJoinPool = new ForkJoinPool()) {
+        ForkJoinPool forkJoinPool = new ForkJoinPool();
+        try {
             MatrixMultiplier task = new MatrixMultiplier(A, B, size);
             int[][] result = forkJoinPool.invoke(task);
 
             System.out.println("Matrice Résultat:");
             printMatrix(result);
+        } finally {
+            forkJoinPool.shutdown();
         }
     }
     private static void enterMatrixValues(int[][] matrix, Scanner scanner) {
