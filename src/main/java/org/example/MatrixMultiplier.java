@@ -68,7 +68,7 @@ public class MatrixMultiplier extends RecursiveTask<int[][]> {
         // Copiez les sous-matrices dans C
         copyMatrix(C, C11, C12, C21, C22);
 
-        printMatrix(C);
+        // printMatrix(C);
         return C; // Renvoie la matrice résultante
     }
 
@@ -83,7 +83,7 @@ public class MatrixMultiplier extends RecursiveTask<int[][]> {
                 }
             }
         }
-        printMatrix(result);
+        // printMatrix(result);
         return result;
     }
 
@@ -134,15 +134,6 @@ public class MatrixMultiplier extends RecursiveTask<int[][]> {
                 result[i + newSize][j] = C21[i][j];
                 result[i + newSize][j + newSize] = C22[i][j];
             }
-        }
-    }
-
-    private static void printMatrix(int[][] matrix) {
-        for (int[] row : matrix) {
-            for (int value : row) {
-                System.out.print(value + " ");
-            }
-            System.out.println();
         }
     }
 }
