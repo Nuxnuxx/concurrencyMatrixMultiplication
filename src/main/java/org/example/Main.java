@@ -1,8 +1,8 @@
 package org.example;
-import java.util.Scanner;
-import java.util.concurrent.ForkJoinPool;
+import java.util.scanner;
+import java.util.concurrent.forkjoinpool;
 
-public class Main {
+public class main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -20,11 +20,11 @@ public class Main {
 
         System.out.println("Entrez la Matrice A:");
         // enterMatrixValues(A, scanner);
-        autoMatrixValues(A, scanner);
+				MatrixUtils.autoMatrixValues(A, scanner);
 
         System.out.println("Entrez la Matrice B:");
         // enterMatrixValues(B, scanner);
-        autoMatrixValues(B, scanner);
+				MatrixUtils.autoMatrixValues(B, scanner);
 
         ForkJoinPool forkJoinPool = new ForkJoinPool();
         try {
@@ -32,38 +32,9 @@ public class Main {
             int[][] result = forkJoinPool.invoke(task);
 
             System.out.println("Matrice Résultat:");
-            printMatrix(result);
+						MatrixUtils.printMatrix(result);
         } finally {
             forkJoinPool.shutdown();
-        }
-    }
-    private static void enterMatrixValues(int[][] matrix, Scanner scanner) {
-        int size = matrix.length;
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                System.out.print("Entrez la rangée " + (i + 1) + ", colonne " + (j + 1) + ": ");
-                matrix[i][j] = scanner.nextInt();
-            }
-        }
-    }
-
-    private static void autoMatrixValues(int[][] matrix, Scanner scanner) {
-        int size = matrix.length;
-        System.out.print("Valeur 'auto' : ");
-        int value = scanner.nextInt();
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                matrix[i][j] = value;
-            }
-        }
-    }
-
-    private static void printMatrix(int[][] matrix) {
-        for (int[] row : matrix) {
-            for (int value : row) {
-                System.out.print(value + " ");
-            }
-            System.out.println();
         }
     }
 }
