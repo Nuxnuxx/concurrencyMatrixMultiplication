@@ -5,7 +5,7 @@ import java.util.concurrent.RecursiveTask;
 public class MatrixMultiplier extends RecursiveTask<int[][]> {
     private final int[][] A; // Matrice A
     private final int[][] B; // Matrice B
-    private int[][] C; // Matrice résultante
+    private final int[][] C; // Matrice résultante
     private final int size; // Taille des matrices
 
     // Seuil pour la condition de base (à ajuster en fonction de la taille de la matrice)
@@ -39,7 +39,9 @@ public class MatrixMultiplier extends RecursiveTask<int[][]> {
 
         // Divisez les matrices A et B en sous-matrices
         divideMatrix(A, A11, A12, A21, A22);
+
         divideMatrix(B, B11, B12, B21, B22);
+
 
         // Créez des tâches pour les multiplications des sous-matrices
         MatrixMultiplier m1 = new MatrixMultiplier(add(A11, A22), add(B11, B22), newSize);
@@ -60,10 +62,10 @@ public class MatrixMultiplier extends RecursiveTask<int[][]> {
         m7.fork();
 
         // Joignez et combinez les résultats
-        int[][] C11 = subtract(add(add(m5.join(), m4.join()), m2.join()), m6.join());
-        int[][] C12 = add(m1.join(), m2.join());
-        int[][] C21 = add(m3.join(), m4.join());
-        int[][] C22 = subtract(subtract(add(m1.join(), m5.join()), m3.join()), m7.join());
+        int[][] C11 = subtract(add(m1.join(), m4.join()), add(m5.join(), m7.join()));
+        int[][] C12 = add(m3.join(), m5.join());
+        int[][] C21 = add(m2.join(), m4.join());
+        int[][] C22 = add(subtract(m1.join(), m2.join()), add(m3.join(), m6.join()));
 
         // Copiez les sous-matrices dans C
         copyMatrix(C, C11, C12, C21, C22);
@@ -83,7 +85,6 @@ public class MatrixMultiplier extends RecursiveTask<int[][]> {
                 }
             }
         }
-        // printMatrix(result);
         return result;
     }
 
@@ -122,6 +123,8 @@ public class MatrixMultiplier extends RecursiveTask<int[][]> {
                 C22[i][j] = matrix[i + newSize][j + newSize];
             }
         }
+
+
     }
 
     // Méthode pour copier les sous-matrices dans la matrice résultante
@@ -134,6 +137,15 @@ public class MatrixMultiplier extends RecursiveTask<int[][]> {
                 result[i + newSize][j] = C21[i][j];
                 result[i + newSize][j + newSize] = C22[i][j];
             }
+        }
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        for (int[] row : matrix) {
+            for (int value : row) {
+                System.out.print(value + " ");
+            }
+            System.out.println();
         }
     }
 }
