@@ -9,7 +9,7 @@ public class MatrixMultiplier extends RecursiveTask<int[][]> {
     private final int size; // Taille des matrices
 
     // Seuil pour la condition de base (à ajuster en fonction de la taille de la matrice)
-    private static final int SEUIL = 4;
+    private static final int SEUIL = 8;
 
     // Constructeur de la classe
     public MatrixMultiplier(int[][] A, int[][] B, int size) {
@@ -22,6 +22,9 @@ public class MatrixMultiplier extends RecursiveTask<int[][]> {
     // Méthode principale pour effectuer la multiplication de matrices
     @Override
     protected int[][] compute() {
+        printMatrix(A);
+        printMatrix(B);
+
         if (size < SEUIL) {
             // Condition de base : multiplication de matrices de petite taille
             return multiplyMatrices(A, B);
@@ -62,10 +65,10 @@ public class MatrixMultiplier extends RecursiveTask<int[][]> {
         m7.fork();
 
         // Joignez et combinez les résultats
-        int[][] C11 = subtract(add(m1.join(), m4.join()), add(m5.join(), m7.join()));
+        int[][] C11 = add(subtract(add(m1.join(), m4.join()), m5.join()), m7.join());
         int[][] C12 = add(m3.join(), m5.join());
         int[][] C21 = add(m2.join(), m4.join());
-        int[][] C22 = add(subtract(m1.join(), m2.join()), add(m3.join(), m6.join()));
+        int[][] C22 = add(add(subtract(m1.join(), m4.join()), m3.join()), m6.join());
 
         // Copiez les sous-matrices dans C
         copyMatrix(C, C11, C12, C21, C22);
