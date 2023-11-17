@@ -2,20 +2,31 @@ package org.example;
 
 import java.util.concurrent.RecursiveTask;
 
-import java.util.concurrent.RecursiveTask;
-
 /**
  * Classe représentant un multiplieur de matrices utilisant le framework Fork-Join en Java.
  */
 public class MatrixMultiplier extends RecursiveTask<int[][]> {
+    /**
+     * Matrice A.
+     */
+    private final int[][] A;
+    /**
+     * Matrice B.
+     */
+    private final int[][] B;
+    /**
+     * Matrice résultante.
+     */
+    private final int[][] C;
+    /**
+     * Taille des matrices.
+     */
+    private final int size;
 
-    private final int[][] A; // Matrice A
-    private final int[][] B; // Matrice B
-    private final int[][] C; // Matrice résultante
-    private final int size; // Taille des matrices
-
-    // Seuil pour la condition de base (à ajuster en fonction de la taille de la matrice)
-    private static final int SEUIL = 8;
+    /**
+     * Seuil pour la condition de base (à ajuster en fonction de la taille de la matrice).
+     */
+    private static final int SEUIL = 64;
 
     /**
      * Constructeur de la classe MatrixMultiplier.

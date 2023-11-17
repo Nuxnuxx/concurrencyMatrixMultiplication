@@ -8,7 +8,7 @@ import java.util.concurrent.ForkJoinPool;
 /**
  * Cette classe démontre la multiplication de matrices en utilisant le framework Fork-Join en Java.
  */
-public class Main {
+public  class Main {
 
     /**
      * La méthode principale qui initialise les matrices, permet la saisie de l'utilisateur et effectue la multiplication de matrices.
